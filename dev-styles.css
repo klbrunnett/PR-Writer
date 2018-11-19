@@ -1,0 +1,12 @@
+div {
+	border-style: solid;
+	border-width: 0.5px;
+}
+
+div.container-fluid {
+	border-style: none;
+}
+
+div[class^="col"] {
+  background-color: silver;
+}
