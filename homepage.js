@@ -2,6 +2,20 @@
 
 const e = React.createElement;
 
+class SearchHeader extends React.Component {
+   constructor(props) {
+      super(props);
+   }
+   
+   render() {
+      return e(
+        "div",
+        { class: "col text-center" },
+        e("h1", null, "Search for News")
+      );
+   }
+}
+
 class LikeButton extends React.Component {
    constructor(props) {
       super(props);
@@ -21,5 +35,5 @@ class LikeButton extends React.Component {
    }
 }
 
-const domContainer = document.querySelector('#root');
-ReactDOM.render(e(LikeButton), domContainer);
+const domContainer = document.querySelector('#search-header');
+ReactDOM.render(e(SearchHeader), domContainer);
