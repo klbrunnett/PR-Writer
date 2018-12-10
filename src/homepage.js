@@ -1,81 +1,82 @@
 'use strict';
 
-const e = React.createElement;
-
-class SearchHeader extends React.Component {
-   constructor(props) {
-      super(props);
-   }
+function App() {
+   const industryOptions = [ "Agriculture", "Automotive", "Cybersecurity", "Data Technology", "Healthcare", "Financial" ];
+   const categoryOptions = [ "Products", "Executive Thought", "Leadership", "Research / Studies", "Applications", "Trends" ];
+   const subcategoryOptions = [ "Data Clouds", "Data Storage", "Data Analytics", "Data Marketing", "Data Hybrids" ];
    
-   render() {
-      return (
+	return (
+      <div class="container">
+         <div>
+            <SearchHeader/>
+            <div class="row align-items-center">
+               <Selection inputName="Industry" options={industryOptions}/>
+               <Selection inputName="Category" options={categoryOptions}/>
+               <Selection inputName="Subcategory" options={subcategoryOptions}/>
+            </div>
+         </div>
+      </div>
+   );
+}
+
+function SearchHeader() {
+   return (
+      <div class="row align-items-center">
          <div class="col text-center">
             <h1>Search for News</h1>
          </div>
-      );
-   }
+      </div>
+   );
+}
+
+function Selection(props) {
+   const forSelectID = "input" + props.inputName + "Select";
+   return (
+      <div class="col">
+         <div class="input-group">
+            <div class="input-group-prepend">
+               <label class="input-group-text" for={forSelectID}>{props.inputName}</label>
+            </div>
+            <Dropdown selectID={props.inputName} options={props.options}/>
+         </div>
+      </div>
+   );
 }
 
 class Dropdown extends React.Component {
    constructor(props) {
       super(props);
-   }
-   
-   populateDropdown(contents) {
-      var dropdownContents =  (
-         <div class="input-group">
-            <div class="input-group-prepend">
-               <label class="input-group-text" for="inputIndustrySelect">Industry</label>
-            </div>
-            <select class="custom-select" id="inputIndustrySelect" defaultValue="">
-               <option value="">Choose...</option>
-      );
-      
-      var contentLength = contents.length;
-      for (var i = 0; i < contentLength; i++) {
-         dropdownContents += <option value={i}>{contents[i]}</option>;
-      }
-      
-      dropdownContents += (
-            </select>
-         </div>
-      );
-      return dropdownContents;
-   }
-}
-
-class InputIndustryDropdown extends Dropdown {
-   constructor(props) {
-      super(props);
+      this.state = { options: null };
+      this.handleChange = this.handleChange.bind(this);
    }
    
    render() {
-      var inputIndustryContents = [ "Agriculture", "Automotive", "Cybersecurity", "Data Technology", "Healthcare", "Financial" ];
-      return super.populateDropdown(inputIndustryContents);
-   }
-}
-
-class LikeButton extends React.Component {
-   constructor(props) {
-      super(props);
-      this.state = { liked: false };
-   }
-
-   render() {
-      if (this.state.liked) {
-         return 'You liked this.';
-      }
-
-      return e(
-         'button',
-         { onClick: () => this.setState({ liked: true }) },
-         'Like'
+      // var populates = this.props.populates;
+      const options = this.props.options.map((value) => <DropdownOption key={value} value={value}/>);
+      
+      return (
+         <select class="custom-select" id={this.props.selectID} defaultValue="" onChange={this.handleChange}>
+            <option value="">Choose...</option>
+            {options}
+         </select>
       );
    }
+   
+   handleChange() {
+	   console.log("changes");
+   }
+   
+   // componentDidMount() {
+	   // this.state = 
+   // }
+   
+   // componentWillUnmount() {
+	   
+   // }
 }
 
-const domContainer = document.querySelector('#search-header');
-ReactDOM.render(e(SearchHeader), domContainer);
+function DropdownOption(props) {
+	return <option value={props.value}>{props.value}</option>;
+}
 
-const domContainer1 = document.querySelector('#input-industry');
-ReactDOM.render(e(InputIndustryDropdown), domContainer1);
+ReactDOM.render(<App />, document.getElementById('root'));
