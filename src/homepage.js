@@ -6,6 +6,17 @@ function App() {
          <div>
             <SearchHeader/>
             <Form/>
+            <Results/>
+         </div>
+      </div>
+   );
+}
+
+function SearchHeader() {
+   return (
+      <div class="row align-items-center">
+         <div class="col text-center">
+            <h1>Search for News</h1>
          </div>
       </div>
    );
@@ -84,23 +95,18 @@ class Form extends React.Component {
       }
    
       return (
-         <div class="row align-items-center">
-            <Selection inputName="Industry" options={industryOptions} value={this.state.industry} onChange={this.onIndustryChange}/>
-            <Selection inputName="Category" options={categoryOptions[this.state.industry]} value={this.state.category} onChange={this.onCategoryChange}/>
-            <Selection inputName="Subcategory" options={subcategoryOptions[this.state.category]} value={this.state.subcategory} onChange={this.onSubcategoryChange}/>
-         </div>
+         <form class="px-4 py-3">
+            <div class="row align-items-center">
+               <Selection inputName="Industry" options={industryOptions} value={this.state.industry} onChange={this.onIndustryChange}/>
+               <Selection inputName="Category" options={categoryOptions[this.state.industry]} value={this.state.category} onChange={this.onCategoryChange}/>
+               <Selection inputName="Subcategory" options={subcategoryOptions[this.state.category]} value={this.state.subcategory} onChange={this.onSubcategoryChange}/>
+            </div>
+            <div class="row align-items-center justify-content-center">
+               <Search/>
+            </div>
+         </form>
       );
    }
-}
-
-function SearchHeader() {
-   return (
-      <div class="row align-items-center">
-         <div class="col text-center">
-            <h1>Search for News</h1>
-         </div>
-      </div>
-   );
 }
 
 function Selection(props) {
@@ -113,6 +119,14 @@ function Selection(props) {
             </div>
             <Dropdown selectID={props.inputName} options={props.options} value={props.value} onChange={props.onChange}/>
          </div>
+      </div>
+   );
+}
+
+function Search(props) {
+   return (
+      <div class="col text-center">
+         <button type="submit" class="btn btn-primary">Search</button>
       </div>
    );
 }
@@ -136,6 +150,18 @@ class Dropdown extends React.Component {
 
 function DropdownOption(props) {
 	return <option value={props.value}>{props.value}</option>;
+}
+
+class Results extends React.Component {
+   constructor(props) {
+      super(props);
+   }
+   
+   render() {
+      return (
+         <div/>
+      );
+   }
 }
 
 ReactDOM.render(<App />, document.getElementById('root'));

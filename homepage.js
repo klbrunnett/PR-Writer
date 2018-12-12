@@ -16,7 +16,24 @@ function App() {
          "div",
          null,
          React.createElement(SearchHeader, null),
-         React.createElement(Form, null)
+         React.createElement(Form, null),
+         React.createElement(Results, null)
+      )
+   );
+}
+
+function SearchHeader() {
+   return React.createElement(
+      "div",
+      { "class": "row align-items-center" },
+      React.createElement(
+         "div",
+         { "class": "col text-center" },
+         React.createElement(
+            "h1",
+            null,
+            "Search for News"
+         )
       )
    );
 }
@@ -105,33 +122,26 @@ var Form = function (_React$Component) {
          };
 
          return React.createElement(
-            "div",
-            { "class": "row align-items-center" },
-            React.createElement(Selection, { inputName: "Industry", options: industryOptions, value: this.state.industry, onChange: this.onIndustryChange }),
-            React.createElement(Selection, { inputName: "Category", options: categoryOptions[this.state.industry], value: this.state.category, onChange: this.onCategoryChange }),
-            React.createElement(Selection, { inputName: "Subcategory", options: subcategoryOptions[this.state.category], value: this.state.subcategory, onChange: this.onSubcategoryChange })
+            "form",
+            { "class": "px-4 py-3" },
+            React.createElement(
+               "div",
+               { "class": "row align-items-center" },
+               React.createElement(Selection, { inputName: "Industry", options: industryOptions, value: this.state.industry, onChange: this.onIndustryChange }),
+               React.createElement(Selection, { inputName: "Category", options: categoryOptions[this.state.industry], value: this.state.category, onChange: this.onCategoryChange }),
+               React.createElement(Selection, { inputName: "Subcategory", options: subcategoryOptions[this.state.category], value: this.state.subcategory, onChange: this.onSubcategoryChange })
+            ),
+            React.createElement(
+               "div",
+               { "class": "row align-items-center justify-content-center" },
+               React.createElement(Search, null)
+            )
          );
       }
    }]);
 
    return Form;
 }(React.Component);
-
-function SearchHeader() {
-   return React.createElement(
-      "div",
-      { "class": "row align-items-center" },
-      React.createElement(
-         "div",
-         { "class": "col text-center" },
-         React.createElement(
-            "h1",
-            null,
-            "Search for News"
-         )
-      )
-   );
-}
 
 function Selection(props) {
    var forSelectID = "input" + props.inputName + "Select";
@@ -151,6 +161,18 @@ function Selection(props) {
             )
          ),
          React.createElement(Dropdown, { selectID: props.inputName, options: props.options, value: props.value, onChange: props.onChange })
+      )
+   );
+}
+
+function Search(props) {
+   return React.createElement(
+      "div",
+      { "class": "col text-center" },
+      React.createElement(
+         "button",
+         { type: "submit", "class": "btn btn-primary" },
+         "Search"
       )
    );
 }
@@ -194,5 +216,24 @@ function DropdownOption(props) {
       props.value
    );
 }
+
+var Results = function (_React$Component3) {
+   _inherits(Results, _React$Component3);
+
+   function Results(props) {
+      _classCallCheck(this, Results);
+
+      return _possibleConstructorReturn(this, (Results.__proto__ || Object.getPrototypeOf(Results)).call(this, props));
+   }
+
+   _createClass(Results, [{
+      key: "render",
+      value: function render() {
+         return React.createElement("div", null);
+      }
+   }]);
+
+   return Results;
+}(React.Component);
 
 ReactDOM.render(React.createElement(App, null), document.getElementById('root'));
