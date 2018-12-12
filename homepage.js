@@ -164,7 +164,7 @@ var Form = function (_React$Component2) {
             ),
             React.createElement(
                "div",
-               { "class": "row align-items-center justify-content-center top-buffer bottom-buffer" },
+               { "class": "row align-items-center justify-content-center my-2" },
                React.createElement(Search, { onSearchClick: this.props.onSearchClick })
             )
          );
@@ -291,7 +291,7 @@ var Result = function (_React$Component5) {
       value: function render() {
          return React.createElement(
             "div",
-            { "class": "row top-buffer" },
+            { "class": "row my-1" },
             React.createElement(
                "div",
                { "class": "col-1" },

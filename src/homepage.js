@@ -122,7 +122,7 @@ class Form extends React.Component {
                <Selection inputName="Category" options={categoryOptions[this.props.industry]} value={this.props.category} onChange={this.props.onCategoryChange}/>
                <Selection inputName="Subcategory" options={subcategoryOptions[this.props.category]} value={this.props.subcategory} onChange={this.props.onSubcategoryChange}/>
             </div>
-            <div class="row align-items-center justify-content-center top-buffer bottom-buffer">
+            <div class="row align-items-center justify-content-center my-2">
                <Search onSearchClick={this.props.onSearchClick}/>
             </div>
          </form>
@@ -198,7 +198,7 @@ class Result extends React.Component {
    
    render() {
       return (
-         <div class="row top-buffer">
+         <div class="row my-1">
             <div class="col-1">Result:</div>
             <div class="col-11">{this.props.result}</div>
          </div>
