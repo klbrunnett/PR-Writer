@@ -1,15 +1,52 @@
 'use strict';
 
-function App() {
-	return (
-      <div class="container">
-         <div>
-            <SearchHeader/>
-            <Form/>
-            <Results/>
+class App extends React.Component {
+   constructor(props) {
+      super(props);
+      this.onIndustryChange = this.onIndustryChange.bind(this);
+      this.onCategoryChange = this.onCategoryChange.bind(this);
+      this.onSubcategoryChange = this.onSubcategoryChange.bind(this);
+      this.onSearchClick = this.onSearchClick.bind(this);
+      this.state = { industry: "", category: "", subcategory: "" };
+   }
+   
+   // TODO: make this and other state functions take raw value instead of event
+   onIndustryChange(event) {
+      this.setState({industry: event.target.value});
+   }
+   
+   onCategoryChange(event) {
+      this.setState({category: event.target.value});
+   }
+   
+   onSubcategoryChange(event) {
+      this.setState({subcategory: event.target.value});
+   }
+   
+   onSearchClick(event) {
+      event.preventDefault();
+      // TODO: query the Dynamo Table for results
+      this.setState((state, props) => ({results: [
+         "Result 1 for industry: " + state.industry + ", category: " + state.category + ", subcategory: " + state.subcategory,
+         "Result 2 for industry: " + state.industry + ", category: " + state.category + ", subcategory: " + state.subcategory,
+         "Result 3 for industry: " + state.industry + ", category: " + state.category + ", subcategory: " + state.subcategory,
+      ]}));
+   }
+   
+   render() {
+      return (
+         <div class="container">
+            <div>
+               <SearchHeader/>
+               <Form 
+                  industry={this.state.industry} category={this.state.category} subcategory={this.state.subcategory} 
+                  onIndustryChange={this.onIndustryChange} onCategoryChange={this.onCategoryChange} onSubcategoryChange={this.onSubcategoryChange}
+                  onSearchClick={this.onSearchClick}/>
+               <ResultsList results={this.state.results}/>
+            </div>
          </div>
-      </div>
-   );
+      );      
+   }
 }
 
 function SearchHeader() {
@@ -25,22 +62,6 @@ function SearchHeader() {
 class Form extends React.Component {
    constructor(props) {
       super(props);
-      this.onIndustryChange = this.onIndustryChange.bind(this);
-      this.onCategoryChange = this.onCategoryChange.bind(this);
-      this.onSubcategoryChange = this.onSubcategoryChange.bind(this);
-      this.state = { industry: "", category: "", subcategory: "" };
-   }
-   
-   onIndustryChange(event) {
-      this.setState({industry: event.target.value});
-   }
-   
-   onCategoryChange(event) {
-      this.setState({category: event.target.value});
-   }
-   
-   onSubcategoryChange(event) {
-      this.setState({subcategory: event.target.value});
    }
    
    render() {
@@ -97,12 +118,12 @@ class Form extends React.Component {
       return (
          <form class="px-4 py-3">
             <div class="row align-items-center">
-               <Selection inputName="Industry" options={industryOptions} value={this.state.industry} onChange={this.onIndustryChange}/>
-               <Selection inputName="Category" options={categoryOptions[this.state.industry]} value={this.state.category} onChange={this.onCategoryChange}/>
-               <Selection inputName="Subcategory" options={subcategoryOptions[this.state.category]} value={this.state.subcategory} onChange={this.onSubcategoryChange}/>
+               <Selection inputName="Industry" options={industryOptions} value={this.props.industry} onChange={this.props.onIndustryChange}/>
+               <Selection inputName="Category" options={categoryOptions[this.props.industry]} value={this.props.category} onChange={this.props.onCategoryChange}/>
+               <Selection inputName="Subcategory" options={subcategoryOptions[this.props.category]} value={this.props.subcategory} onChange={this.props.onSubcategoryChange}/>
             </div>
-            <div class="row align-items-center justify-content-center">
-               <Search/>
+            <div class="row align-items-center justify-content-center top-buffer bottom-buffer">
+               <Search onSearchClick={this.props.onSearchClick}/>
             </div>
          </form>
       );
@@ -126,7 +147,7 @@ function Selection(props) {
 function Search(props) {
    return (
       <div class="col text-center">
-         <button type="submit" class="btn btn-primary">Search</button>
+         <button type="submit" class="btn btn-primary" onClick={props.onSearchClick}>Search</button>
       </div>
    );
 }
@@ -152,14 +173,35 @@ function DropdownOption(props) {
 	return <option value={props.value}>{props.value}</option>;
 }
 
-class Results extends React.Component {
+class ResultsList extends React.Component {
+   constructor(props) {
+      super(props);
+   }
+   
+   render() {
+      if (this.props.results) {
+         const results = this.props.results.map((result) => <Result key={result} result={result}/>);  
+         return (
+            <div>
+               {results}
+            </div>
+         );
+      }
+      return <div/>;
+   }
+}
+
+class Result extends React.Component {
    constructor(props) {
       super(props);
    }
    
    render() {
       return (
-         <div/>
+         <div class="row top-buffer">
+            <div class="col-1">Result:</div>
+            <div class="col-11">{this.props.result}</div>
+         </div>
       );
    }
 }

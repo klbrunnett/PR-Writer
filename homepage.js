@@ -8,19 +8,71 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-function App() {
-   return React.createElement(
-      "div",
-      { "class": "container" },
-      React.createElement(
-         "div",
-         null,
-         React.createElement(SearchHeader, null),
-         React.createElement(Form, null),
-         React.createElement(Results, null)
-      )
-   );
-}
+var App = function (_React$Component) {
+   _inherits(App, _React$Component);
+
+   function App(props) {
+      _classCallCheck(this, App);
+
+      var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
+
+      _this.onIndustryChange = _this.onIndustryChange.bind(_this);
+      _this.onCategoryChange = _this.onCategoryChange.bind(_this);
+      _this.onSubcategoryChange = _this.onSubcategoryChange.bind(_this);
+      _this.onSearchClick = _this.onSearchClick.bind(_this);
+      _this.state = { industry: "", category: "", subcategory: "" };
+      return _this;
+   }
+
+   // TODO: make this and other state functions take raw value instead of event
+
+
+   _createClass(App, [{
+      key: "onIndustryChange",
+      value: function onIndustryChange(event) {
+         this.setState({ industry: event.target.value });
+      }
+   }, {
+      key: "onCategoryChange",
+      value: function onCategoryChange(event) {
+         this.setState({ category: event.target.value });
+      }
+   }, {
+      key: "onSubcategoryChange",
+      value: function onSubcategoryChange(event) {
+         this.setState({ subcategory: event.target.value });
+      }
+   }, {
+      key: "onSearchClick",
+      value: function onSearchClick(event) {
+         event.preventDefault();
+         // TODO: query the Dynamo Table for results
+         this.setState(function (state, props) {
+            return { results: ["Result 1 for industry: " + state.industry + ", category: " + state.category + ", subcategory: " + state.subcategory, "Result 2 for industry: " + state.industry + ", category: " + state.category + ", subcategory: " + state.subcategory, "Result 3 for industry: " + state.industry + ", category: " + state.category + ", subcategory: " + state.subcategory] };
+         });
+      }
+   }, {
+      key: "render",
+      value: function render() {
+         return React.createElement(
+            "div",
+            { "class": "container" },
+            React.createElement(
+               "div",
+               null,
+               React.createElement(SearchHeader, null),
+               React.createElement(Form, {
+                  industry: this.state.industry, category: this.state.category, subcategory: this.state.subcategory,
+                  onIndustryChange: this.onIndustryChange, onCategoryChange: this.onCategoryChange, onSubcategoryChange: this.onSubcategoryChange,
+                  onSearchClick: this.onSearchClick }),
+               React.createElement(ResultsList, { results: this.state.results })
+            )
+         );
+      }
+   }]);
+
+   return App;
+}(React.Component);
 
 function SearchHeader() {
    return React.createElement(
@@ -38,37 +90,16 @@ function SearchHeader() {
    );
 }
 
-var Form = function (_React$Component) {
-   _inherits(Form, _React$Component);
+var Form = function (_React$Component2) {
+   _inherits(Form, _React$Component2);
 
    function Form(props) {
       _classCallCheck(this, Form);
 
-      var _this = _possibleConstructorReturn(this, (Form.__proto__ || Object.getPrototypeOf(Form)).call(this, props));
-
-      _this.onIndustryChange = _this.onIndustryChange.bind(_this);
-      _this.onCategoryChange = _this.onCategoryChange.bind(_this);
-      _this.onSubcategoryChange = _this.onSubcategoryChange.bind(_this);
-      _this.state = { industry: "", category: "", subcategory: "" };
-      return _this;
+      return _possibleConstructorReturn(this, (Form.__proto__ || Object.getPrototypeOf(Form)).call(this, props));
    }
 
    _createClass(Form, [{
-      key: "onIndustryChange",
-      value: function onIndustryChange(event) {
-         this.setState({ industry: event.target.value });
-      }
-   }, {
-      key: "onCategoryChange",
-      value: function onCategoryChange(event) {
-         this.setState({ category: event.target.value });
-      }
-   }, {
-      key: "onSubcategoryChange",
-      value: function onSubcategoryChange(event) {
-         this.setState({ subcategory: event.target.value });
-      }
-   }, {
       key: "render",
       value: function render() {
          var industryOptions = ["Agriculture", "Automotive", "Cybersecurity", "Data Technology", "Healthcare", "Financial"];
@@ -127,14 +158,14 @@ var Form = function (_React$Component) {
             React.createElement(
                "div",
                { "class": "row align-items-center" },
-               React.createElement(Selection, { inputName: "Industry", options: industryOptions, value: this.state.industry, onChange: this.onIndustryChange }),
-               React.createElement(Selection, { inputName: "Category", options: categoryOptions[this.state.industry], value: this.state.category, onChange: this.onCategoryChange }),
-               React.createElement(Selection, { inputName: "Subcategory", options: subcategoryOptions[this.state.category], value: this.state.subcategory, onChange: this.onSubcategoryChange })
+               React.createElement(Selection, { inputName: "Industry", options: industryOptions, value: this.props.industry, onChange: this.props.onIndustryChange }),
+               React.createElement(Selection, { inputName: "Category", options: categoryOptions[this.props.industry], value: this.props.category, onChange: this.props.onCategoryChange }),
+               React.createElement(Selection, { inputName: "Subcategory", options: subcategoryOptions[this.props.category], value: this.props.subcategory, onChange: this.props.onSubcategoryChange })
             ),
             React.createElement(
                "div",
-               { "class": "row align-items-center justify-content-center" },
-               React.createElement(Search, null)
+               { "class": "row align-items-center justify-content-center top-buffer bottom-buffer" },
+               React.createElement(Search, { onSearchClick: this.props.onSearchClick })
             )
          );
       }
@@ -171,14 +202,14 @@ function Search(props) {
       { "class": "col text-center" },
       React.createElement(
          "button",
-         { type: "submit", "class": "btn btn-primary" },
+         { type: "submit", "class": "btn btn-primary", onClick: props.onSearchClick },
          "Search"
       )
    );
 }
 
-var Dropdown = function (_React$Component2) {
-   _inherits(Dropdown, _React$Component2);
+var Dropdown = function (_React$Component3) {
+   _inherits(Dropdown, _React$Component3);
 
    function Dropdown(props) {
       _classCallCheck(this, Dropdown);
@@ -217,23 +248,65 @@ function DropdownOption(props) {
    );
 }
 
-var Results = function (_React$Component3) {
-   _inherits(Results, _React$Component3);
+var ResultsList = function (_React$Component4) {
+   _inherits(ResultsList, _React$Component4);
 
-   function Results(props) {
-      _classCallCheck(this, Results);
+   function ResultsList(props) {
+      _classCallCheck(this, ResultsList);
 
-      return _possibleConstructorReturn(this, (Results.__proto__ || Object.getPrototypeOf(Results)).call(this, props));
+      return _possibleConstructorReturn(this, (ResultsList.__proto__ || Object.getPrototypeOf(ResultsList)).call(this, props));
    }
 
-   _createClass(Results, [{
+   _createClass(ResultsList, [{
       key: "render",
       value: function render() {
+         if (this.props.results) {
+            var results = this.props.results.map(function (result) {
+               return React.createElement(Result, { key: result, result: result });
+            });
+            return React.createElement(
+               "div",
+               null,
+               results
+            );
+         }
          return React.createElement("div", null);
       }
    }]);
 
-   return Results;
+   return ResultsList;
+}(React.Component);
+
+var Result = function (_React$Component5) {
+   _inherits(Result, _React$Component5);
+
+   function Result(props) {
+      _classCallCheck(this, Result);
+
+      return _possibleConstructorReturn(this, (Result.__proto__ || Object.getPrototypeOf(Result)).call(this, props));
+   }
+
+   _createClass(Result, [{
+      key: "render",
+      value: function render() {
+         return React.createElement(
+            "div",
+            { "class": "row top-buffer" },
+            React.createElement(
+               "div",
+               { "class": "col-1" },
+               "Result:"
+            ),
+            React.createElement(
+               "div",
+               { "class": "col-11" },
+               this.props.result
+            )
+         );
+      }
+   }]);
+
+   return Result;
 }(React.Component);
 
 ReactDOM.render(React.createElement(App, null), document.getElementById('root'));
