@@ -7,20 +7,33 @@ class App extends React.Component {
       this.onCategoryChange = this.onCategoryChange.bind(this);
       this.onSubcategoryChange = this.onSubcategoryChange.bind(this);
       this.onSearchClick = this.onSearchClick.bind(this);
-      this.state = { industry: "", category: "", subcategory: "" };
+      this.state = { industry: "", category: "", subcategory: "", isCategoryDisabled: "disabled", isSubcategoryDisabled: "disabled", isSearchDisabled: "disabled" };
    }
    
    // TODO: make this and other state functions take raw value instead of event
    onIndustryChange(event) {
-      this.setState({industry: event.target.value});
+      var isCategoryDisabled = "";
+      if (!event.target.value) {
+         isCategoryDisabled = "disabled";
+      }
+      
+      this.setState({industry: event.target.value, isCategoryDisabled: isCategoryDisabled});
    }
    
    onCategoryChange(event) {
-      this.setState({category: event.target.value});
+      var isSubcategoryDisabled = "";
+      if (!event.target.value) {
+         isSubcategoryDisabled = "disabled";
+      }
+      this.setState({category: event.target.value, isSubcategoryDisabled: isSubcategoryDisabled});
    }
    
    onSubcategoryChange(event) {
-      this.setState({subcategory: event.target.value});
+      var isSearchDisabled = "";
+      if (!event.target.value) {
+         isSearchDisabled = "disabled";
+      }
+      this.setState({subcategory: event.target.value, isSearchDisabled: isSearchDisabled});
    }
    
    onSearchClick(event) {
@@ -36,14 +49,13 @@ class App extends React.Component {
    render() {
       return (
          <div class="container">
-            <div>
-               <SearchHeader/>
-               <Form 
-                  industry={this.state.industry} category={this.state.category} subcategory={this.state.subcategory} 
-                  onIndustryChange={this.onIndustryChange} onCategoryChange={this.onCategoryChange} onSubcategoryChange={this.onSubcategoryChange}
-                  onSearchClick={this.onSearchClick}/>
-               <ResultsList results={this.state.results}/>
-            </div>
+            <SearchHeader/>
+            <Form 
+               industry={this.state.industry} category={this.state.category} subcategory={this.state.subcategory} 
+               onIndustryChange={this.onIndustryChange} onCategoryChange={this.onCategoryChange} onSubcategoryChange={this.onSubcategoryChange}
+               onSearchClick={this.onSearchClick} isCategoryDisabled={this.state.isCategoryDisabled} isSubcategoryDisabled={this.state.isSubcategoryDisabled}
+               isSearchDisabled={this.state.isSearchDisabled}/>
+            <ResultsList results={this.state.results}/>
          </div>
       );      
    }
@@ -115,15 +127,18 @@ class Form extends React.Component {
 			"Financial.Trends": [ "Financial.Trends.Data Clouds", "Financial.Trends.Data Storage", "Financial.Trends.Data Analytics", "Financial.Trends.Data Marketing", "Financial.Trends.Data Hybrids" ]
       }
    
+      // TODO: look into making the buttons a button group: https://getbootstrap.com/docs/4.1/components/button-group/
       return (
          <form class="px-4 py-3">
-            <div class="row align-items-center">
-               <Selection inputName="Industry" options={industryOptions} value={this.props.industry} onChange={this.props.onIndustryChange}/>
-               <Selection inputName="Category" options={categoryOptions[this.props.industry]} value={this.props.category} onChange={this.props.onCategoryChange}/>
-               <Selection inputName="Subcategory" options={subcategoryOptions[this.props.category]} value={this.props.subcategory} onChange={this.props.onSubcategoryChange}/>
-            </div>
-            <div class="row align-items-center justify-content-center my-2">
-               <Search onSearchClick={this.props.onSearchClick}/>
+            <div class="form-group">
+               <div class="row align-items-center">
+                  <Selection inputName="Industry" options={industryOptions} value={this.props.industry} onChange={this.props.onIndustryChange}/>
+                  <Selection inputName="Category" options={categoryOptions[this.props.industry]} value={this.props.category} onChange={this.props.onCategoryChange} disabled={this.props.isCategoryDisabled}/>
+                  <Selection inputName="Subcategory" options={subcategoryOptions[this.props.category]} value={this.props.subcategory} onChange={this.props.onSubcategoryChange} disabled={this.props.isSubcategoryDisabled}/>
+               </div>
+               <div class="row align-items-center justify-content-center my-2">
+                  <Search onSearchClick={this.props.onSearchClick} disabled={this.props.isSearchDisabled}/>
+               </div>
             </div>
          </form>
       );
@@ -138,16 +153,8 @@ function Selection(props) {
             <div class="input-group-prepend">
                <label class="input-group-text" for={forSelectID}>{props.inputName}</label>
             </div>
-            <Dropdown selectID={props.inputName} options={props.options} value={props.value} onChange={props.onChange}/>
+            <Dropdown selectID={props.inputName} options={props.options} value={props.value} onChange={props.onChange} disabled={props.disabled}/>
          </div>
-      </div>
-   );
-}
-
-function Search(props) {
-   return (
-      <div class="col text-center">
-         <button type="submit" class="btn btn-primary" onClick={props.onSearchClick}>Search</button>
       </div>
    );
 }
@@ -161,7 +168,7 @@ class Dropdown extends React.Component {
       const options = this.props.options.map((value) => <DropdownOption key={value} value={value}/>);
       
       return (
-         <select class="custom-select" name={this.props.selectID} id={this.props.selectID} value={this.props.value} onChange={this.props.onChange}>
+         <select class="custom-select" name={this.props.selectID} id={this.props.selectID} value={this.props.value} onChange={this.props.onChange} disabled={this.props.disabled}>
             <option value="">Choose...</option>
             {options}
          </select>
@@ -171,6 +178,14 @@ class Dropdown extends React.Component {
 
 function DropdownOption(props) {
 	return <option value={props.value}>{props.value}</option>;
+}
+
+function Search(props) {
+   return (
+      <div class="col text-center">
+         <button type="submit" class="btn btn-primary" onClick={props.onSearchClick} disabled={props.disabled}>Search</button>
+      </div>
+   );
 }
 
 class ResultsList extends React.Component {
@@ -183,6 +198,17 @@ class ResultsList extends React.Component {
          const results = this.props.results.map((result) => <Result key={result} result={result}/>);  
          return (
             <div>
+               <div class="row align-items-center">
+                  <div class="col-2">
+                     Company
+                  </div>
+                  <div class="col-8">
+                     Title
+                  </div>
+                  <div class="col-2">
+                     Date
+                  </div>
+               </div>
                {results}
             </div>
          );
@@ -195,12 +221,14 @@ class Result extends React.Component {
    constructor(props) {
       super(props);
    }
-   
+
+   // TODO: look into making a result a card: https://getbootstrap.com/docs/4.1/components/card/
    render() {
       return (
-         <div class="row my-1">
-            <div class="col-1">Result:</div>
-            <div class="col-11">{this.props.result}</div>
+         <div class="row border-primary">
+            <div class="col-2 border border-primary">MyCompany</div>
+            <div class="col-8 border border-primary">{this.props.result}</div>
+            <div class="col-2 border border-primary">MyDate</div>
          </div>
       );
    }

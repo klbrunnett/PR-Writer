@@ -20,7 +20,7 @@ var App = function (_React$Component) {
       _this.onCategoryChange = _this.onCategoryChange.bind(_this);
       _this.onSubcategoryChange = _this.onSubcategoryChange.bind(_this);
       _this.onSearchClick = _this.onSearchClick.bind(_this);
-      _this.state = { industry: "", category: "", subcategory: "" };
+      _this.state = { industry: "", category: "", subcategory: "", isCategoryDisabled: "disabled", isSubcategoryDisabled: "disabled", isSearchDisabled: "disabled" };
       return _this;
    }
 
@@ -30,17 +30,30 @@ var App = function (_React$Component) {
    _createClass(App, [{
       key: "onIndustryChange",
       value: function onIndustryChange(event) {
-         this.setState({ industry: event.target.value });
+         var isCategoryDisabled = "";
+         if (!event.target.value) {
+            isCategoryDisabled = "disabled";
+         }
+
+         this.setState({ industry: event.target.value, isCategoryDisabled: isCategoryDisabled });
       }
    }, {
       key: "onCategoryChange",
       value: function onCategoryChange(event) {
-         this.setState({ category: event.target.value });
+         var isSubcategoryDisabled = "";
+         if (!event.target.value) {
+            isSubcategoryDisabled = "disabled";
+         }
+         this.setState({ category: event.target.value, isSubcategoryDisabled: isSubcategoryDisabled });
       }
    }, {
       key: "onSubcategoryChange",
       value: function onSubcategoryChange(event) {
-         this.setState({ subcategory: event.target.value });
+         var isSearchDisabled = "";
+         if (!event.target.value) {
+            isSearchDisabled = "disabled";
+         }
+         this.setState({ subcategory: event.target.value, isSearchDisabled: isSearchDisabled });
       }
    }, {
       key: "onSearchClick",
@@ -57,16 +70,13 @@ var App = function (_React$Component) {
          return React.createElement(
             "div",
             { "class": "container" },
-            React.createElement(
-               "div",
-               null,
-               React.createElement(SearchHeader, null),
-               React.createElement(Form, {
-                  industry: this.state.industry, category: this.state.category, subcategory: this.state.subcategory,
-                  onIndustryChange: this.onIndustryChange, onCategoryChange: this.onCategoryChange, onSubcategoryChange: this.onSubcategoryChange,
-                  onSearchClick: this.onSearchClick }),
-               React.createElement(ResultsList, { results: this.state.results })
-            )
+            React.createElement(SearchHeader, null),
+            React.createElement(Form, {
+               industry: this.state.industry, category: this.state.category, subcategory: this.state.subcategory,
+               onIndustryChange: this.onIndustryChange, onCategoryChange: this.onCategoryChange, onSubcategoryChange: this.onSubcategoryChange,
+               onSearchClick: this.onSearchClick, isCategoryDisabled: this.state.isCategoryDisabled, isSubcategoryDisabled: this.state.isSubcategoryDisabled,
+               isSearchDisabled: this.state.isSearchDisabled }),
+            React.createElement(ResultsList, { results: this.state.results })
          );
       }
    }]);
@@ -150,22 +160,26 @@ var Form = function (_React$Component2) {
             "Financial.Research / Studies": ["Financial.Research / Studies.Data Clouds", "Financial.Research / Studies.Data Storage", "Financial.Research / Studies.Data Analytics", "Financial.Research / Studies.Data Marketing", "Financial.Research / Studies.Data Hybrids"],
             "Financial.Applications": ["Financial.Applications.Data Clouds", "Financial.Applications.Data Storage", "Financial.Applications.Data Analytics", "Financial.Applications.Data Marketing", "Financial.Applications.Data Hybrids"],
             "Financial.Trends": ["Financial.Trends.Data Clouds", "Financial.Trends.Data Storage", "Financial.Trends.Data Analytics", "Financial.Trends.Data Marketing", "Financial.Trends.Data Hybrids"]
-         };
 
-         return React.createElement(
+            // TODO: look into making the buttons a button group: https://getbootstrap.com/docs/4.1/components/button-group/
+         };return React.createElement(
             "form",
             { "class": "px-4 py-3" },
             React.createElement(
                "div",
-               { "class": "row align-items-center" },
-               React.createElement(Selection, { inputName: "Industry", options: industryOptions, value: this.props.industry, onChange: this.props.onIndustryChange }),
-               React.createElement(Selection, { inputName: "Category", options: categoryOptions[this.props.industry], value: this.props.category, onChange: this.props.onCategoryChange }),
-               React.createElement(Selection, { inputName: "Subcategory", options: subcategoryOptions[this.props.category], value: this.props.subcategory, onChange: this.props.onSubcategoryChange })
-            ),
-            React.createElement(
-               "div",
-               { "class": "row align-items-center justify-content-center my-2" },
-               React.createElement(Search, { onSearchClick: this.props.onSearchClick })
+               { "class": "form-group" },
+               React.createElement(
+                  "div",
+                  { "class": "row align-items-center" },
+                  React.createElement(Selection, { inputName: "Industry", options: industryOptions, value: this.props.industry, onChange: this.props.onIndustryChange }),
+                  React.createElement(Selection, { inputName: "Category", options: categoryOptions[this.props.industry], value: this.props.category, onChange: this.props.onCategoryChange, disabled: this.props.isCategoryDisabled }),
+                  React.createElement(Selection, { inputName: "Subcategory", options: subcategoryOptions[this.props.category], value: this.props.subcategory, onChange: this.props.onSubcategoryChange, disabled: this.props.isSubcategoryDisabled })
+               ),
+               React.createElement(
+                  "div",
+                  { "class": "row align-items-center justify-content-center my-2" },
+                  React.createElement(Search, { onSearchClick: this.props.onSearchClick, disabled: this.props.isSearchDisabled })
+               )
             )
          );
       }
@@ -191,19 +205,7 @@ function Selection(props) {
                props.inputName
             )
          ),
-         React.createElement(Dropdown, { selectID: props.inputName, options: props.options, value: props.value, onChange: props.onChange })
-      )
-   );
-}
-
-function Search(props) {
-   return React.createElement(
-      "div",
-      { "class": "col text-center" },
-      React.createElement(
-         "button",
-         { type: "submit", "class": "btn btn-primary", onClick: props.onSearchClick },
-         "Search"
+         React.createElement(Dropdown, { selectID: props.inputName, options: props.options, value: props.value, onChange: props.onChange, disabled: props.disabled })
       )
    );
 }
@@ -226,7 +228,7 @@ var Dropdown = function (_React$Component3) {
 
          return React.createElement(
             "select",
-            { "class": "custom-select", name: this.props.selectID, id: this.props.selectID, value: this.props.value, onChange: this.props.onChange },
+            { "class": "custom-select", name: this.props.selectID, id: this.props.selectID, value: this.props.value, onChange: this.props.onChange, disabled: this.props.disabled },
             React.createElement(
                "option",
                { value: "" },
@@ -245,6 +247,18 @@ function DropdownOption(props) {
       "option",
       { value: props.value },
       props.value
+   );
+}
+
+function Search(props) {
+   return React.createElement(
+      "div",
+      { "class": "col text-center" },
+      React.createElement(
+         "button",
+         { type: "submit", "class": "btn btn-primary", onClick: props.onSearchClick, disabled: props.disabled },
+         "Search"
+      )
    );
 }
 
@@ -267,6 +281,25 @@ var ResultsList = function (_React$Component4) {
             return React.createElement(
                "div",
                null,
+               React.createElement(
+                  "div",
+                  { "class": "row align-items-center" },
+                  React.createElement(
+                     "div",
+                     { "class": "col-2" },
+                     "Company"
+                  ),
+                  React.createElement(
+                     "div",
+                     { "class": "col-8" },
+                     "Title"
+                  ),
+                  React.createElement(
+                     "div",
+                     { "class": "col-2" },
+                     "Date"
+                  )
+               ),
                results
             );
          }
@@ -286,21 +319,29 @@ var Result = function (_React$Component5) {
       return _possibleConstructorReturn(this, (Result.__proto__ || Object.getPrototypeOf(Result)).call(this, props));
    }
 
+   // TODO: look into making a result a card: https://getbootstrap.com/docs/4.1/components/card/
+
+
    _createClass(Result, [{
       key: "render",
       value: function render() {
          return React.createElement(
             "div",
-            { "class": "row my-1" },
+            { "class": "row border-primary" },
             React.createElement(
                "div",
-               { "class": "col-1" },
-               "Result:"
+               { "class": "col-2 border border-primary" },
+               "MyCompany"
             ),
             React.createElement(
                "div",
-               { "class": "col-11" },
+               { "class": "col-8 border border-primary" },
                this.props.result
+            ),
+            React.createElement(
+               "div",
+               { "class": "col-2 border border-primary" },
+               "MyDate"
             )
          );
       }
