@@ -229,7 +229,6 @@ class Result extends React.Component {
       super(props);
    }
 
-   // TODO: look into making a result a card: https://getbootstrap.com/docs/4.1/components/card/
    render() {
       return (
          <div class="card">
@@ -245,6 +244,8 @@ class Result extends React.Component {
             <div id={"collapse-" + this.props.id} class="collapse" aria-labelledby={"header-" + this.props.id} data-parent="#resultsAccordion">
                <div class="card-body">
                   {this.props.detail}
+                  <br />
+                  <button type="submit" class="btn btn-primary">Accept Embargo</button>
                </div>
              </div>
          </div>

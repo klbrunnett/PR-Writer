@@ -318,9 +318,6 @@ var Result = function (_React$Component5) {
       return _possibleConstructorReturn(this, (Result.__proto__ || Object.getPrototypeOf(Result)).call(this, props));
    }
 
-   // TODO: look into making a result a card: https://getbootstrap.com/docs/4.1/components/card/
-
-
    _createClass(Result, [{
       key: "render",
       value: function render() {
@@ -364,7 +361,13 @@ var Result = function (_React$Component5) {
                React.createElement(
                   "div",
                   { "class": "card-body" },
-                  this.props.detail
+                  this.props.detail,
+                  React.createElement("br", null),
+                  React.createElement(
+                     "button",
+                     { type: "submit", "class": "btn btn-primary" },
+                     "Accept Embargo"
+                  )
                )
             )
          );
