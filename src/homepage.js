@@ -40,9 +40,27 @@ class App extends React.Component {
       event.preventDefault();
       // TODO: query the Dynamo Table for results
       this.setState((state, props) => ({results: [
-         "Result 1 for industry: " + state.industry + ", category: " + state.category + ", subcategory: " + state.subcategory,
-         "Result 2 for industry: " + state.industry + ", category: " + state.category + ", subcategory: " + state.subcategory,
-         "Result 3 for industry: " + state.industry + ", category: " + state.category + ", subcategory: " + state.subcategory,
+         {
+            "id": "1",
+            "company": "Company 1",
+            "title": "Result 1 for " + state.subcategory,
+            "date": "02/13/2019",
+            "detail": "Details for story from Company 1."
+         },
+         {
+            "id": "2",
+            "company": "Company 2",
+            "title": "Result 2 for " + state.subcategory,
+            "date": "02/13/2019",
+            "detail": "Details for story from Company 2."
+         },
+         {
+            "id": "3",
+            "company": "Company 3",
+            "title": "Result 3 for " + state.subcategory,
+            "date": "02/13/2019",            
+            "detail": "Details for story from Company 3."
+         }
       ]}));
    }
    
@@ -195,20 +213,9 @@ class ResultsList extends React.Component {
    
    render() {
       if (this.props.results) {
-         const results = this.props.results.map((result) => <Result key={result} result={result}/>);  
+         const results = this.props.results.map((result) => <Result key={result.id} id={result.id} company={result.company} title={result.title} date={result.date} detail={result.detail}/>);  
          return (
-            <div>
-               <div class="row align-items-center">
-                  <div class="col-2">
-                     Company
-                  </div>
-                  <div class="col-8">
-                     Title
-                  </div>
-                  <div class="col-2">
-                     Date
-                  </div>
-               </div>
+            <div class="accordion" id="resultsAccordion">
                {results}
             </div>
          );
@@ -225,10 +232,21 @@ class Result extends React.Component {
    // TODO: look into making a result a card: https://getbootstrap.com/docs/4.1/components/card/
    render() {
       return (
-         <div class="row border-primary">
-            <div class="col-2 border border-primary">MyCompany</div>
-            <div class="col-8 border border-primary">{this.props.result}</div>
-            <div class="col-2 border border-primary">MyDate</div>
+         <div class="card">
+            <div class="card-header" id={"header-" + this.props.id}>
+               <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target={"#collapse-" + this.props.id} aria-expanded="false" aria-controls={"collapse-" + this.props.id}>
+                  <div class="row-fluid">
+                     <div class="col-2"><h3>{this.props.company}</h3></div>
+                     <div class="col-8">{this.props.title}</div>
+                     <div class="col-2">{this.props.date}</div>
+                  </div>
+               </button>
+            </div>
+            <div id={"collapse-" + this.props.id} class="collapse" aria-labelledby={"header-" + this.props.id} data-parent="#resultsAccordion">
+               <div class="card-body">
+                  {this.props.detail}
+               </div>
+             </div>
          </div>
       );
    }

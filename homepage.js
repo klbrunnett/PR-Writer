@@ -61,7 +61,25 @@ var App = function (_React$Component) {
          event.preventDefault();
          // TODO: query the Dynamo Table for results
          this.setState(function (state, props) {
-            return { results: ["Result 1 for industry: " + state.industry + ", category: " + state.category + ", subcategory: " + state.subcategory, "Result 2 for industry: " + state.industry + ", category: " + state.category + ", subcategory: " + state.subcategory, "Result 3 for industry: " + state.industry + ", category: " + state.category + ", subcategory: " + state.subcategory] };
+            return { results: [{
+                  "id": "1",
+                  "company": "Company 1",
+                  "title": "Result 1 for " + state.subcategory,
+                  "date": "02/13/2019",
+                  "detail": "Details for story from Company 1."
+               }, {
+                  "id": "2",
+                  "company": "Company 2",
+                  "title": "Result 2 for " + state.subcategory,
+                  "date": "02/13/2019",
+                  "detail": "Details for story from Company 2."
+               }, {
+                  "id": "3",
+                  "company": "Company 3",
+                  "title": "Result 3 for " + state.subcategory,
+                  "date": "02/13/2019",
+                  "detail": "Details for story from Company 3."
+               }] };
          });
       }
    }, {
@@ -276,30 +294,11 @@ var ResultsList = function (_React$Component4) {
       value: function render() {
          if (this.props.results) {
             var results = this.props.results.map(function (result) {
-               return React.createElement(Result, { key: result, result: result });
+               return React.createElement(Result, { key: result.id, id: result.id, company: result.company, title: result.title, date: result.date, detail: result.detail });
             });
             return React.createElement(
                "div",
-               null,
-               React.createElement(
-                  "div",
-                  { "class": "row align-items-center" },
-                  React.createElement(
-                     "div",
-                     { "class": "col-2" },
-                     "Company"
-                  ),
-                  React.createElement(
-                     "div",
-                     { "class": "col-8" },
-                     "Title"
-                  ),
-                  React.createElement(
-                     "div",
-                     { "class": "col-2" },
-                     "Date"
-                  )
-               ),
+               { "class": "accordion", id: "resultsAccordion" },
                results
             );
          }
@@ -327,21 +326,46 @@ var Result = function (_React$Component5) {
       value: function render() {
          return React.createElement(
             "div",
-            { "class": "row border-primary" },
+            { "class": "card" },
             React.createElement(
                "div",
-               { "class": "col-2 border border-primary" },
-               "MyCompany"
+               { "class": "card-header", id: "header-" + this.props.id },
+               React.createElement(
+                  "button",
+                  { "class": "btn btn-link collapsed", type: "button", "data-toggle": "collapse", "data-target": "#collapse-" + this.props.id, "aria-expanded": "false", "aria-controls": "collapse-" + this.props.id },
+                  React.createElement(
+                     "div",
+                     { "class": "row-fluid" },
+                     React.createElement(
+                        "div",
+                        { "class": "col-2" },
+                        React.createElement(
+                           "h3",
+                           null,
+                           this.props.company
+                        )
+                     ),
+                     React.createElement(
+                        "div",
+                        { "class": "col-8" },
+                        this.props.title
+                     ),
+                     React.createElement(
+                        "div",
+                        { "class": "col-2" },
+                        this.props.date
+                     )
+                  )
+               )
             ),
             React.createElement(
                "div",
-               { "class": "col-8 border border-primary" },
-               this.props.result
-            ),
-            React.createElement(
-               "div",
-               { "class": "col-2 border border-primary" },
-               "MyDate"
+               { id: "collapse-" + this.props.id, "class": "collapse", "aria-labelledby": "header-" + this.props.id, "data-parent": "#resultsAccordion" },
+               React.createElement(
+                  "div",
+                  { "class": "card-body" },
+                  this.props.detail
+               )
             )
          );
       }
