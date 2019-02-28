@@ -30,30 +30,88 @@ class WriterTabs extends React.Component {
       super(props);
    }
    
+   renderWriterProfile() {
+      return (
+         <div>
+            Writer Profile Content
+         </div>
+      );
+   }
+   
+   renderEmbargo() {
+      return (
+         <div>
+            Embargo Content
+         </div>
+      );
+   }
+   
+   renderPublishedArticles() {
+      return (
+         <div>
+            Published Articles Content
+         </div>
+      );
+   }
+   
+   renderAnalytics() {
+      return (
+         <div>
+            Analytics Content
+         </div>
+      );
+   }
+   
    render() {
       return (
          <div>
             <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
-               <li class="nav-item">
-                  <a class="nav-link active" id="writer-profile-tab" data-toggle="tab" href="#writer-profile" role="tab" aria-controls="writer-profile" aria-selected="true">Writer Profile</a>
-               </li>
-               <li class="nav-item">
-                  <a class="nav-link" id="embargoes-tab" data-toggle="tab" href="#embargoes" role="tab" aria-controls="embargoes" aria-selected="false">Embargoes</a>
-               </li>
-               <li class="nav-item">
-                  <a class="nav-link" id="published-articles-tab" data-toggle="tab" href="#published-articles" role="tab" aria-controls="published-articles" aria-selected="false">Published Articles</a>
-               </li>
-               <li class="nav-item">
-                  <a class="nav-link" id="analytics-tab" data-toggle="tab" href="#analytics" role="tab" aria-controls="analytics" aria-selected="false">Analytics</a>
-               </li>
+               <WriterTab id="writer-profile" title="Writer Profile" initialActive="true"/>
+               <WriterTab id="embargoes" title="Embargoes"/>
+               <WriterTab id="published-articles" title="Published Articles"/>
+               <WriterTab id="analytics" title="Analytics"/>
             </ul>
             <div class="tab-content" id="myTabContent">
-               <div class="tab-pane fade show active" id="writer-profile" role="tabpanel" aria-labelledby="writer-profile-tab">Writer Profile Content</div>
-               <div class="tab-pane fade" id="embargoes" role="tabpanel" aria-labelledby="embargoes-tab">Embargoes Content</div>
-               <div class="tab-pane fade" id="published-articles" role="tabpanel" aria-labelledby="published-articles-tab">Published Articles Content</div>
-               <div class="tab-pane fade" id="analytics" role="tabpanel" aria-labelledby="analytics-tab">Analytics Content</div>
+               <WriterTabContent id="writer-profile" content={this.renderWriterProfile()} initialActive="true"/>
+               <WriterTabContent id="embargoes" content={this.renderEmbargo()}/>
+               <WriterTabContent id="published-articles" content={this.renderPublishedArticles()}/>
+               <WriterTabContent id="analytics" content={this.renderAnalytics()}/>
             </div>
          </div>
+      );
+   }
+}
+
+class WriterTab extends React.Component {
+   constructor(props) {
+      super(props);
+   }
+   
+   render() {
+      var active = "";
+      if (this.props.initialActive == "true") {
+         active = " active";
+      }
+      return (
+         <li class="nav-item">
+            <a class={"nav-link" + active} id={this.props.id + "-tab"} data-toggle="tab" href={"#" + this.props.id} role="tab" aria-controls={this.props.id} aria-selected="true">{this.props.title}</a>
+         </li>
+      );
+   }
+}
+
+class WriterTabContent extends React.Component {
+   constructor(props) {
+      super(props);
+   }
+   
+   render() {
+      var active = "";
+      if (this.props.initialActive) {
+         active = " show active";
+      }
+      return (
+         <div class={"tab-pane fade" + active} id={this.props.id} role="tabpanel" aria-labelledby={this.props.id + "-tab"}>{this.props.content}</div>
       );
    }
 }

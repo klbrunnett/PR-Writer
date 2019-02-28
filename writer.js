@@ -58,6 +58,42 @@ var WriterTabs = function (_React$Component2) {
    }
 
    _createClass(WriterTabs, [{
+      key: "renderWriterProfile",
+      value: function renderWriterProfile() {
+         return React.createElement(
+            "div",
+            null,
+            "Writer Profile Content"
+         );
+      }
+   }, {
+      key: "renderEmbargo",
+      value: function renderEmbargo() {
+         return React.createElement(
+            "div",
+            null,
+            "Embargo Content"
+         );
+      }
+   }, {
+      key: "renderPublishedArticles",
+      value: function renderPublishedArticles() {
+         return React.createElement(
+            "div",
+            null,
+            "Published Articles Content"
+         );
+      }
+   }, {
+      key: "renderAnalytics",
+      value: function renderAnalytics() {
+         return React.createElement(
+            "div",
+            null,
+            "Analytics Content"
+         );
+      }
+   }, {
       key: "render",
       value: function render() {
          return React.createElement(
@@ -66,72 +102,82 @@ var WriterTabs = function (_React$Component2) {
             React.createElement(
                "ul",
                { "class": "nav nav-tabs justify-content-center", id: "myTab", role: "tablist" },
-               React.createElement(
-                  "li",
-                  { "class": "nav-item" },
-                  React.createElement(
-                     "a",
-                     { "class": "nav-link active", id: "writer-profile-tab", "data-toggle": "tab", href: "#writer-profile", role: "tab", "aria-controls": "writer-profile", "aria-selected": "true" },
-                     "Writer Profile"
-                  )
-               ),
-               React.createElement(
-                  "li",
-                  { "class": "nav-item" },
-                  React.createElement(
-                     "a",
-                     { "class": "nav-link", id: "embargoes-tab", "data-toggle": "tab", href: "#embargoes", role: "tab", "aria-controls": "embargoes", "aria-selected": "false" },
-                     "Embargoes"
-                  )
-               ),
-               React.createElement(
-                  "li",
-                  { "class": "nav-item" },
-                  React.createElement(
-                     "a",
-                     { "class": "nav-link", id: "published-articles-tab", "data-toggle": "tab", href: "#published-articles", role: "tab", "aria-controls": "published-articles", "aria-selected": "false" },
-                     "Published Articles"
-                  )
-               ),
-               React.createElement(
-                  "li",
-                  { "class": "nav-item" },
-                  React.createElement(
-                     "a",
-                     { "class": "nav-link", id: "analytics-tab", "data-toggle": "tab", href: "#analytics", role: "tab", "aria-controls": "analytics", "aria-selected": "false" },
-                     "Analytics"
-                  )
-               )
+               React.createElement(WriterTab, { id: "writer-profile", title: "Writer Profile", initialActive: "true" }),
+               React.createElement(WriterTab, { id: "embargoes", title: "Embargoes" }),
+               React.createElement(WriterTab, { id: "published-articles", title: "Published Articles" }),
+               React.createElement(WriterTab, { id: "analytics", title: "Analytics" })
             ),
             React.createElement(
                "div",
                { "class": "tab-content", id: "myTabContent" },
-               React.createElement(
-                  "div",
-                  { "class": "tab-pane fade show active", id: "writer-profile", role: "tabpanel", "aria-labelledby": "writer-profile-tab" },
-                  "Writer Profile Content"
-               ),
-               React.createElement(
-                  "div",
-                  { "class": "tab-pane fade", id: "embargoes", role: "tabpanel", "aria-labelledby": "embargoes-tab" },
-                  "Embargoes Content"
-               ),
-               React.createElement(
-                  "div",
-                  { "class": "tab-pane fade", id: "published-articles", role: "tabpanel", "aria-labelledby": "published-articles-tab" },
-                  "Published Articles Content"
-               ),
-               React.createElement(
-                  "div",
-                  { "class": "tab-pane fade", id: "analytics", role: "tabpanel", "aria-labelledby": "analytics-tab" },
-                  "Analytics Content"
-               )
+               React.createElement(WriterTabContent, { id: "writer-profile", content: this.renderWriterProfile(), initialActive: "true" }),
+               React.createElement(WriterTabContent, { id: "embargoes", content: this.renderEmbargo() }),
+               React.createElement(WriterTabContent, { id: "published-articles", content: this.renderPublishedArticles() }),
+               React.createElement(WriterTabContent, { id: "analytics", content: this.renderAnalytics() })
             )
          );
       }
    }]);
 
    return WriterTabs;
+}(React.Component);
+
+var WriterTab = function (_React$Component3) {
+   _inherits(WriterTab, _React$Component3);
+
+   function WriterTab(props) {
+      _classCallCheck(this, WriterTab);
+
+      return _possibleConstructorReturn(this, (WriterTab.__proto__ || Object.getPrototypeOf(WriterTab)).call(this, props));
+   }
+
+   _createClass(WriterTab, [{
+      key: "render",
+      value: function render() {
+         var active = "";
+         if (this.props.initialActive == "true") {
+            active = " active";
+         }
+         return React.createElement(
+            "li",
+            { "class": "nav-item" },
+            React.createElement(
+               "a",
+               { "class": "nav-link" + active, id: this.props.id + "-tab", "data-toggle": "tab", href: "#" + this.props.id, role: "tab", "aria-controls": this.props.id, "aria-selected": "true" },
+               this.props.title
+            )
+         );
+      }
+   }]);
+
+   return WriterTab;
+}(React.Component);
+
+var WriterTabContent = function (_React$Component4) {
+   _inherits(WriterTabContent, _React$Component4);
+
+   function WriterTabContent(props) {
+      _classCallCheck(this, WriterTabContent);
+
+      return _possibleConstructorReturn(this, (WriterTabContent.__proto__ || Object.getPrototypeOf(WriterTabContent)).call(this, props));
+   }
+
+   _createClass(WriterTabContent, [{
+      key: "render",
+      value: function render() {
+         var active = "";
+         if (this.props.initialActive) {
+            active = " show active";
+         }
+         return React.createElement(
+            "div",
+            { "class": "tab-pane fade" + active, id: this.props.id, role: "tabpanel", "aria-labelledby": this.props.id + "-tab" },
+            this.props.content
+         );
+      }
+   }]);
+
+   return WriterTabContent;
 }(React.Component);
 
 ReactDOM.render(React.createElement(App, null), document.getElementById('root'));
