@@ -62,8 +62,21 @@ var WriterTabs = function (_React$Component2) {
       value: function renderWriterProfile() {
          return React.createElement(
             "div",
-            null,
-            "Writer Profile Content"
+            { "class": "row-fluid" },
+            React.createElement(
+               "div",
+               { "class": "col-8 offset-2" },
+               "Name: ",
+               React.createElement("br", null),
+               "Publication: ",
+               React.createElement("br", null),
+               "Industries Covered: ",
+               React.createElement("br", null),
+               "Biography: ",
+               React.createElement("br", null),
+               "Twitter: ",
+               React.createElement("br", null)
+            )
          );
       }
    }, {
@@ -72,7 +85,296 @@ var WriterTabs = function (_React$Component2) {
          return React.createElement(
             "div",
             null,
-            "Embargo Content"
+            React.createElement(
+               "ul",
+               { "class": "nav nav-tabs justify-content-center", id: "embargoesTabs", role: "tablist" },
+               React.createElement(WriterTab, { id: "acceptedEmbargoes", title: "Accepted", initialActive: "true" }),
+               React.createElement(WriterTab, { id: "savedEmbargoes", title: "Saved" })
+            ),
+            React.createElement(
+               "div",
+               { "class": "tab-content", id: "embargoesTabsContent" },
+               React.createElement(WriterTabContent, { id: "acceptedEmbargoes", content: this.renderAcceptedEmbargoes(), initialActive: "true" }),
+               React.createElement(WriterTabContent, { id: "savedEmbargoes", content: this.renderSavedEmbargoes() })
+            )
+         );
+      }
+   }, {
+      key: "renderAcceptedEmbargoes",
+      value: function renderAcceptedEmbargoes() {
+         return React.createElement(
+            "table",
+            { "class": "table table-striped" },
+            React.createElement(
+               "thead",
+               null,
+               React.createElement(
+                  "tr",
+                  null,
+                  React.createElement(
+                     "th",
+                     { scope: "col" },
+                     "Date Accepted"
+                  ),
+                  React.createElement(
+                     "th",
+                     { scope: "col" },
+                     "Company"
+                  ),
+                  React.createElement(
+                     "th",
+                     { scope: "col" },
+                     "Title"
+                  ),
+                  React.createElement(
+                     "th",
+                     { scope: "col" },
+                     "Publish Date"
+                  )
+               )
+            ),
+            React.createElement(
+               "tbody",
+               null,
+               React.createElement(
+                  "tr",
+                  null,
+                  React.createElement(
+                     "td",
+                     null,
+                     "Mar 18, 2019"
+                  ),
+                  React.createElement(
+                     "td",
+                     null,
+                     "My Company"
+                  ),
+                  React.createElement(
+                     "td",
+                     null,
+                     "My Title"
+                  ),
+                  React.createElement(
+                     "td",
+                     null,
+                     "Mar 28, 2019"
+                  )
+               ),
+               React.createElement(
+                  "tr",
+                  null,
+                  React.createElement(
+                     "td",
+                     null,
+                     "Mar 18, 2019"
+                  ),
+                  React.createElement(
+                     "td",
+                     null,
+                     "My Company"
+                  ),
+                  React.createElement(
+                     "td",
+                     null,
+                     "My Title"
+                  ),
+                  React.createElement(
+                     "td",
+                     null,
+                     "Mar 28, 2019"
+                  )
+               ),
+               React.createElement(
+                  "tr",
+                  null,
+                  React.createElement(
+                     "td",
+                     null,
+                     "Mar 18, 2019"
+                  ),
+                  React.createElement(
+                     "td",
+                     null,
+                     "My Company"
+                  ),
+                  React.createElement(
+                     "td",
+                     null,
+                     "My Title"
+                  ),
+                  React.createElement(
+                     "td",
+                     null,
+                     "Mar 28, 2019"
+                  )
+               )
+            )
+         );
+      }
+   }, {
+      key: "renderSavedEmbargoes",
+      value: function renderSavedEmbargoes() {
+         return React.createElement(
+            "table",
+            { "class": "table table-hover" },
+            React.createElement(
+               "thead",
+               null,
+               React.createElement(
+                  "tr",
+                  null,
+                  React.createElement(
+                     "th",
+                     { scope: "col" },
+                     "Date Accepted"
+                  ),
+                  React.createElement(
+                     "th",
+                     { scope: "col" },
+                     "Company"
+                  ),
+                  React.createElement(
+                     "th",
+                     { scope: "col" },
+                     "Title"
+                  ),
+                  React.createElement(
+                     "th",
+                     { scope: "col" },
+                     "Publish Date"
+                  )
+               )
+            ),
+            React.createElement(
+               "tbody",
+               null,
+               React.createElement(
+                  "tr",
+                  { "data-toggle": "collapse", "data-target": "#savedEmbargoesRow1", "class": "clickable" },
+                  React.createElement(
+                     "td",
+                     null,
+                     "Mar 18, 2019"
+                  ),
+                  React.createElement(
+                     "td",
+                     null,
+                     "My Company"
+                  ),
+                  React.createElement(
+                     "td",
+                     null,
+                     "My Title"
+                  ),
+                  React.createElement(
+                     "td",
+                     null,
+                     "Mar 28, 2019"
+                  )
+               ),
+               React.createElement(
+                  "tr",
+                  null,
+                  React.createElement(
+                     "td",
+                     { colspan: "4", "class": "p-0" },
+                     React.createElement(
+                        "div",
+                        { id: "savedEmbargoesRow1", "class": "collapse" },
+                        React.createElement(
+                           "h3",
+                           null,
+                           "Overview"
+                        ),
+                        "Overview for the first row, this row is an explanation of the first saved embargo, you should read it if you want to know more about the first embargo"
+                     )
+                  )
+               ),
+               React.createElement(
+                  "tr",
+                  { "data-toggle": "collapse", "data-target": "#savedEmbargoesRow2", "class": "clickable" },
+                  React.createElement(
+                     "td",
+                     null,
+                     "Mar 18, 2019"
+                  ),
+                  React.createElement(
+                     "td",
+                     null,
+                     "My Company"
+                  ),
+                  React.createElement(
+                     "td",
+                     null,
+                     "My Title"
+                  ),
+                  React.createElement(
+                     "td",
+                     null,
+                     "Mar 28, 2019"
+                  )
+               ),
+               React.createElement(
+                  "tr",
+                  null,
+                  React.createElement(
+                     "td",
+                     { colspan: "4", "class": "p-0" },
+                     React.createElement(
+                        "div",
+                        { id: "savedEmbargoesRow2", "class": "collapse" },
+                        React.createElement(
+                           "h3",
+                           null,
+                           "Overview"
+                        ),
+                        "Overview for the second row, this row is an explanation of the second saved embargo, you should read it if you want to know more about the second embargo"
+                     )
+                  )
+               ),
+               React.createElement(
+                  "tr",
+                  { "data-toggle": "collapse", "data-target": "#savedEmbargoesRow3", "class": "clickable" },
+                  React.createElement(
+                     "td",
+                     null,
+                     "Mar 18, 2019"
+                  ),
+                  React.createElement(
+                     "td",
+                     null,
+                     "My Company"
+                  ),
+                  React.createElement(
+                     "td",
+                     null,
+                     "My Title"
+                  ),
+                  React.createElement(
+                     "td",
+                     null,
+                     "Mar 28, 2019"
+                  )
+               ),
+               React.createElement(
+                  "tr",
+                  null,
+                  React.createElement(
+                     "td",
+                     { colspan: "4", "class": "p-0" },
+                     React.createElement(
+                        "div",
+                        { id: "savedEmbargoesRow3", "class": "collapse" },
+                        React.createElement(
+                           "h3",
+                           null,
+                           "Overview"
+                        ),
+                        "Overview for the third row, this row is an explanation of the third saved embargo, you should read it if you want to know more about the third embargo"
+                     )
+                  )
+               )
+            )
          );
       }
    }, {
@@ -81,7 +383,7 @@ var WriterTabs = function (_React$Component2) {
          return React.createElement(
             "div",
             null,
-            "Published Articles Content"
+            "Company, Title of the Press Release"
          );
       }
    }, {
@@ -101,7 +403,7 @@ var WriterTabs = function (_React$Component2) {
             null,
             React.createElement(
                "ul",
-               { "class": "nav nav-tabs justify-content-center", id: "myTab", role: "tablist" },
+               { "class": "nav nav-tabs justify-content-center", id: "writerTabs", role: "tablist" },
                React.createElement(WriterTab, { id: "writer-profile", title: "Writer Profile", initialActive: "true" }),
                React.createElement(WriterTab, { id: "embargoes", title: "Embargoes" }),
                React.createElement(WriterTab, { id: "published-articles", title: "Published Articles" }),
@@ -109,7 +411,7 @@ var WriterTabs = function (_React$Component2) {
             ),
             React.createElement(
                "div",
-               { "class": "tab-content", id: "myTabContent" },
+               { "class": "tab-content", id: "writerTabsContent" },
                React.createElement(WriterTabContent, { id: "writer-profile", content: this.renderWriterProfile(), initialActive: "true" }),
                React.createElement(WriterTabContent, { id: "embargoes", content: this.renderEmbargo() }),
                React.createElement(WriterTabContent, { id: "published-articles", content: this.renderPublishedArticles() }),
