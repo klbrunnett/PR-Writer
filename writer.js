@@ -62,20 +62,104 @@ var WriterTabs = function (_React$Component2) {
       value: function renderWriterProfile() {
          return React.createElement(
             "div",
-            { "class": "row-fluid" },
+            { "class": "row-fluid pt-3" },
             React.createElement(
                "div",
                { "class": "col-8 offset-2" },
-               "Name: ",
-               React.createElement("br", null),
-               "Publication: ",
-               React.createElement("br", null),
-               "Industries Covered: ",
-               React.createElement("br", null),
-               "Biography: ",
-               React.createElement("br", null),
-               "Twitter: ",
-               React.createElement("br", null)
+               React.createElement(
+                  "ul",
+                  { "class": "list-group" },
+                  React.createElement(
+                     "li",
+                     { "class": "list-group-item bg-light" },
+                     React.createElement(
+                        "div",
+                        { "class": "row" },
+                        React.createElement(
+                           "div",
+                           { "class": "col-3" },
+                           "Name:"
+                        ),
+                        React.createElement(
+                           "div",
+                           { "class": "col-9" },
+                           "Kyle Brunnett"
+                        )
+                     )
+                  ),
+                  React.createElement(
+                     "li",
+                     { "class": "list-group-item bg-light" },
+                     React.createElement(
+                        "div",
+                        { "class": "row" },
+                        React.createElement(
+                           "div",
+                           { "class": "col-3" },
+                           "Publication:"
+                        ),
+                        React.createElement(
+                           "div",
+                           { "class": "col-9" },
+                           "New York Times"
+                        )
+                     )
+                  ),
+                  React.createElement(
+                     "li",
+                     { "class": "list-group-item bg-light" },
+                     React.createElement(
+                        "div",
+                        { "class": "row" },
+                        React.createElement(
+                           "div",
+                           { "class": "col-3" },
+                           "Industries Covered:"
+                        ),
+                        React.createElement(
+                           "div",
+                           { "class": "col-9" },
+                           "Data Technology"
+                        )
+                     )
+                  ),
+                  React.createElement(
+                     "li",
+                     { "class": "list-group-item bg-light" },
+                     React.createElement(
+                        "div",
+                        { "class": "row" },
+                        React.createElement(
+                           "div",
+                           { "class": "col-3" },
+                           "Biography:"
+                        ),
+                        React.createElement(
+                           "div",
+                           { "class": "col-9" },
+                           "Computer Engineering Major living in San Luis Obispo, CA"
+                        )
+                     )
+                  ),
+                  React.createElement(
+                     "li",
+                     { "class": "list-group-item bg-light" },
+                     React.createElement(
+                        "div",
+                        { "class": "row" },
+                        React.createElement(
+                           "div",
+                           { "class": "col-3" },
+                           "Twitter:"
+                        ),
+                        React.createElement(
+                           "div",
+                           { "class": "col-9" },
+                           "N/A"
+                        )
+                     )
+                  )
+               )
             )
          );
       }
@@ -87,7 +171,7 @@ var WriterTabs = function (_React$Component2) {
             null,
             React.createElement(
                "ul",
-               { "class": "nav nav-tabs justify-content-center", id: "embargoesTabs", role: "tablist" },
+               { "class": "nav nav-tabs justify-content-center pt-3", id: "embargoesTabs", role: "tablist" },
                React.createElement(WriterTab, { id: "acceptedEmbargoes", title: "Accepted", initialActive: "true" }),
                React.createElement(WriterTab, { id: "savedEmbargoes", title: "Saved" })
             ),
@@ -108,106 +192,14 @@ var WriterTabs = function (_React$Component2) {
             React.createElement(
                "thead",
                null,
-               React.createElement(
-                  "tr",
-                  null,
-                  React.createElement(
-                     "th",
-                     { scope: "col" },
-                     "Date Accepted"
-                  ),
-                  React.createElement(
-                     "th",
-                     { scope: "col" },
-                     "Company"
-                  ),
-                  React.createElement(
-                     "th",
-                     { scope: "col" },
-                     "Title"
-                  ),
-                  React.createElement(
-                     "th",
-                     { scope: "col" },
-                     "Publish Date"
-                  )
-               )
+               React.createElement(AcceptedEmbargoHeader, null)
             ),
             React.createElement(
                "tbody",
                null,
-               React.createElement(
-                  "tr",
-                  null,
-                  React.createElement(
-                     "td",
-                     null,
-                     "Mar 18, 2019"
-                  ),
-                  React.createElement(
-                     "td",
-                     null,
-                     "My Company"
-                  ),
-                  React.createElement(
-                     "td",
-                     null,
-                     "My Title"
-                  ),
-                  React.createElement(
-                     "td",
-                     null,
-                     "Mar 28, 2019"
-                  )
-               ),
-               React.createElement(
-                  "tr",
-                  null,
-                  React.createElement(
-                     "td",
-                     null,
-                     "Mar 18, 2019"
-                  ),
-                  React.createElement(
-                     "td",
-                     null,
-                     "My Company"
-                  ),
-                  React.createElement(
-                     "td",
-                     null,
-                     "My Title"
-                  ),
-                  React.createElement(
-                     "td",
-                     null,
-                     "Mar 28, 2019"
-                  )
-               ),
-               React.createElement(
-                  "tr",
-                  null,
-                  React.createElement(
-                     "td",
-                     null,
-                     "Mar 18, 2019"
-                  ),
-                  React.createElement(
-                     "td",
-                     null,
-                     "My Company"
-                  ),
-                  React.createElement(
-                     "td",
-                     null,
-                     "My Title"
-                  ),
-                  React.createElement(
-                     "td",
-                     null,
-                     "Mar 28, 2019"
-                  )
-               )
+               React.createElement(AcceptedEmbargoRow, { acceptedDate: "Mar 18, 2019", company: "Company 1", title: "Title 1", publishDate: "Mar 28, 2019" }),
+               React.createElement(AcceptedEmbargoRow, { acceptedDate: "Mar 21, 2019", company: "Company 2", title: "Title 2", publishDate: "April 2, 2019" }),
+               React.createElement(AcceptedEmbargoRow, { acceptedDate: "Mar 22, 2019", company: "Company 3", title: "Title 3", publishDate: "June 6, 2019" })
             )
          );
       }
@@ -217,163 +209,16 @@ var WriterTabs = function (_React$Component2) {
          return React.createElement(
             "table",
             { "class": "table table-hover" },
-            React.createElement(
-               "thead",
-               null,
-               React.createElement(
-                  "tr",
-                  null,
-                  React.createElement(
-                     "th",
-                     { scope: "col" },
-                     "Date Accepted"
-                  ),
-                  React.createElement(
-                     "th",
-                     { scope: "col" },
-                     "Company"
-                  ),
-                  React.createElement(
-                     "th",
-                     { scope: "col" },
-                     "Title"
-                  ),
-                  React.createElement(
-                     "th",
-                     { scope: "col" },
-                     "Publish Date"
-                  )
-               )
-            ),
+            React.createElement(SavedEmbargoHeader, null),
             React.createElement(
                "tbody",
                null,
-               React.createElement(
-                  "tr",
-                  { "data-toggle": "collapse", "data-target": "#savedEmbargoesRow1", "class": "clickable" },
-                  React.createElement(
-                     "td",
-                     null,
-                     "Mar 18, 2019"
-                  ),
-                  React.createElement(
-                     "td",
-                     null,
-                     "My Company"
-                  ),
-                  React.createElement(
-                     "td",
-                     null,
-                     "My Title"
-                  ),
-                  React.createElement(
-                     "td",
-                     null,
-                     "Mar 28, 2019"
-                  )
-               ),
-               React.createElement(
-                  "tr",
-                  null,
-                  React.createElement(
-                     "td",
-                     { colspan: "4", "class": "p-0" },
-                     React.createElement(
-                        "div",
-                        { id: "savedEmbargoesRow1", "class": "collapse" },
-                        React.createElement(
-                           "h3",
-                           null,
-                           "Overview"
-                        ),
-                        "Overview for the first row, this row is an explanation of the first saved embargo, you should read it if you want to know more about the first embargo"
-                     )
-                  )
-               ),
-               React.createElement(
-                  "tr",
-                  { "data-toggle": "collapse", "data-target": "#savedEmbargoesRow2", "class": "clickable" },
-                  React.createElement(
-                     "td",
-                     null,
-                     "Mar 18, 2019"
-                  ),
-                  React.createElement(
-                     "td",
-                     null,
-                     "My Company"
-                  ),
-                  React.createElement(
-                     "td",
-                     null,
-                     "My Title"
-                  ),
-                  React.createElement(
-                     "td",
-                     null,
-                     "Mar 28, 2019"
-                  )
-               ),
-               React.createElement(
-                  "tr",
-                  null,
-                  React.createElement(
-                     "td",
-                     { colspan: "4", "class": "p-0" },
-                     React.createElement(
-                        "div",
-                        { id: "savedEmbargoesRow2", "class": "collapse" },
-                        React.createElement(
-                           "h3",
-                           null,
-                           "Overview"
-                        ),
-                        "Overview for the second row, this row is an explanation of the second saved embargo, you should read it if you want to know more about the second embargo"
-                     )
-                  )
-               ),
-               React.createElement(
-                  "tr",
-                  { "data-toggle": "collapse", "data-target": "#savedEmbargoesRow3", "class": "clickable" },
-                  React.createElement(
-                     "td",
-                     null,
-                     "Mar 18, 2019"
-                  ),
-                  React.createElement(
-                     "td",
-                     null,
-                     "My Company"
-                  ),
-                  React.createElement(
-                     "td",
-                     null,
-                     "My Title"
-                  ),
-                  React.createElement(
-                     "td",
-                     null,
-                     "Mar 28, 2019"
-                  )
-               ),
-               React.createElement(
-                  "tr",
-                  null,
-                  React.createElement(
-                     "td",
-                     { colspan: "4", "class": "p-0" },
-                     React.createElement(
-                        "div",
-                        { id: "savedEmbargoesRow3", "class": "collapse" },
-                        React.createElement(
-                           "h3",
-                           null,
-                           "Overview"
-                        ),
-                        "Overview for the third row, this row is an explanation of the third saved embargo, you should read it if you want to know more about the third embargo"
-                     )
-                  )
-               )
+               React.createElement(SavedEmbargoRow, { id: "1", acceptedDate: "Mar 18, 2019", company: "Company 1", title: "Title 1", publishDate: "Mar 28, 2019" }),
+               React.createElement(SavedEmbargoRowDetail, { id: "1", overview: "Overview for the first row, this row is an explanation of the first saved embargo, you should read it if you want to know more about the first embargo" }),
+               React.createElement(SavedEmbargoRow, { id: "2", acceptedDate: "Mar 18, 2019", company: "Company 2", title: "Title 2", publishDate: "Mar 28, 2019" }),
+               React.createElement(SavedEmbargoRowDetail, { id: "2", overview: "Overview for the second row, this row is an explanation of the second saved embargo, you should read it if you want to know more about the second embargo" }),
+               React.createElement(SavedEmbargoRow, { id: "3", acceptedDate: "Mar 18, 2019", company: "Company 3", title: "Title 3", publishDate: "Mar 28, 2019" }),
+               React.createElement(SavedEmbargoRowDetail, { id: "3", overview: "Overview for the third row, this row is an explanation of the third saved embargo, you should read it if you want to know more about the third embargo" })
             )
          );
       }
@@ -424,8 +269,216 @@ var WriterTabs = function (_React$Component2) {
    return WriterTabs;
 }(React.Component);
 
-var WriterTab = function (_React$Component3) {
-   _inherits(WriterTab, _React$Component3);
+var AcceptedEmbargoHeader = function (_React$Component3) {
+   _inherits(AcceptedEmbargoHeader, _React$Component3);
+
+   function AcceptedEmbargoHeader(props) {
+      _classCallCheck(this, AcceptedEmbargoHeader);
+
+      return _possibleConstructorReturn(this, (AcceptedEmbargoHeader.__proto__ || Object.getPrototypeOf(AcceptedEmbargoHeader)).call(this, props));
+   }
+
+   _createClass(AcceptedEmbargoHeader, [{
+      key: "render",
+      value: function render() {
+         return React.createElement(
+            "tr",
+            null,
+            React.createElement(
+               "th",
+               { "class": "border-top-0", scope: "col" },
+               "Date Accepted"
+            ),
+            React.createElement(
+               "th",
+               { "class": "border-top-0", scope: "col" },
+               "Company"
+            ),
+            React.createElement(
+               "th",
+               { "class": "border-top-0", scope: "col" },
+               "Title"
+            ),
+            React.createElement(
+               "th",
+               { "class": "border-top-0", scope: "col" },
+               "Publish Date"
+            )
+         );
+      }
+   }]);
+
+   return AcceptedEmbargoHeader;
+}(React.Component);
+
+var SavedEmbargoHeader = function (_React$Component4) {
+   _inherits(SavedEmbargoHeader, _React$Component4);
+
+   function SavedEmbargoHeader(props) {
+      _classCallCheck(this, SavedEmbargoHeader);
+
+      return _possibleConstructorReturn(this, (SavedEmbargoHeader.__proto__ || Object.getPrototypeOf(SavedEmbargoHeader)).call(this, props));
+   }
+
+   _createClass(SavedEmbargoHeader, [{
+      key: "render",
+      value: function render() {
+         return React.createElement(
+            "thead",
+            null,
+            React.createElement(
+               "tr",
+               null,
+               React.createElement(
+                  "th",
+                  { "class": "border-top-0", scope: "col" },
+                  "Date Saved"
+               ),
+               React.createElement(
+                  "th",
+                  { "class": "border-top-0", scope: "col" },
+                  "Company"
+               ),
+               React.createElement(
+                  "th",
+                  { "class": "border-top-0", scope: "col" },
+                  "Title"
+               ),
+               React.createElement(
+                  "th",
+                  { "class": "border-top-0", scope: "col" },
+                  "Publish Date"
+               )
+            )
+         );
+      }
+   }]);
+
+   return SavedEmbargoHeader;
+}(React.Component);
+
+var AcceptedEmbargoRow = function (_React$Component5) {
+   _inherits(AcceptedEmbargoRow, _React$Component5);
+
+   function AcceptedEmbargoRow(props) {
+      _classCallCheck(this, AcceptedEmbargoRow);
+
+      return _possibleConstructorReturn(this, (AcceptedEmbargoRow.__proto__ || Object.getPrototypeOf(AcceptedEmbargoRow)).call(this, props));
+   }
+
+   _createClass(AcceptedEmbargoRow, [{
+      key: "render",
+      value: function render() {
+         return React.createElement(
+            "tr",
+            null,
+            React.createElement(
+               "td",
+               null,
+               this.props.acceptedDate
+            ),
+            React.createElement(
+               "td",
+               null,
+               this.props.company
+            ),
+            React.createElement(
+               "td",
+               null,
+               this.props.title
+            ),
+            React.createElement(
+               "td",
+               null,
+               this.props.publishDate
+            )
+         );
+      }
+   }]);
+
+   return AcceptedEmbargoRow;
+}(React.Component);
+
+var SavedEmbargoRow = function (_React$Component6) {
+   _inherits(SavedEmbargoRow, _React$Component6);
+
+   function SavedEmbargoRow(props) {
+      _classCallCheck(this, SavedEmbargoRow);
+
+      return _possibleConstructorReturn(this, (SavedEmbargoRow.__proto__ || Object.getPrototypeOf(SavedEmbargoRow)).call(this, props));
+   }
+
+   _createClass(SavedEmbargoRow, [{
+      key: "render",
+      value: function render() {
+         return React.createElement(
+            "tr",
+            { "data-toggle": "collapse", "data-target": "#savedEmbargoesRow-" + this.props.id, "class": "clickable" },
+            React.createElement(
+               "td",
+               null,
+               this.props.acceptedDate
+            ),
+            React.createElement(
+               "td",
+               null,
+               this.props.company
+            ),
+            React.createElement(
+               "td",
+               null,
+               this.props.title
+            ),
+            React.createElement(
+               "td",
+               null,
+               this.props.publishDate
+            )
+         );
+      }
+   }]);
+
+   return SavedEmbargoRow;
+}(React.Component);
+
+var SavedEmbargoRowDetail = function (_React$Component7) {
+   _inherits(SavedEmbargoRowDetail, _React$Component7);
+
+   function SavedEmbargoRowDetail(props) {
+      _classCallCheck(this, SavedEmbargoRowDetail);
+
+      return _possibleConstructorReturn(this, (SavedEmbargoRowDetail.__proto__ || Object.getPrototypeOf(SavedEmbargoRowDetail)).call(this, props));
+   }
+
+   _createClass(SavedEmbargoRowDetail, [{
+      key: "render",
+      value: function render() {
+         return React.createElement(
+            "tr",
+            null,
+            React.createElement(
+               "td",
+               { colspan: "4", "class": "p-0 border-top-0" },
+               React.createElement(
+                  "div",
+                  { id: "savedEmbargoesRow-" + this.props.id, "class": "collapse px-3 py-1" },
+                  React.createElement(
+                     "h3",
+                     null,
+                     "Overview"
+                  ),
+                  this.props.overview
+               )
+            )
+         );
+      }
+   }]);
+
+   return SavedEmbargoRowDetail;
+}(React.Component);
+
+var WriterTab = function (_React$Component8) {
+   _inherits(WriterTab, _React$Component8);
 
    function WriterTab(props) {
       _classCallCheck(this, WriterTab);
@@ -455,8 +508,8 @@ var WriterTab = function (_React$Component3) {
    return WriterTab;
 }(React.Component);
 
-var WriterTabContent = function (_React$Component4) {
-   _inherits(WriterTabContent, _React$Component4);
+var WriterTabContent = function (_React$Component9) {
+   _inherits(WriterTabContent, _React$Component9);
 
    function WriterTabContent(props) {
       _classCallCheck(this, WriterTabContent);
